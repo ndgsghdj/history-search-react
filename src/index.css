@@ -207,3 +207,85 @@ h1 {
         opacity: 0;
     }
 }
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background: #1f1f1f;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode h1, body.dark-mode h2 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .search-form input {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+}
+
+body.dark-mode .search-form button {
+    background-color: #007bff;
+    color: white;
+}
+
+body.dark-mode .search-form button:hover {
+    background-color: #0056b3;
+}
+
+body.dark-mode .card {
+    background-color: #1f1f1f;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .card h2 {
+    color: #42a5f5;
+}
+
+body.dark-mode .card p {
+    color: #e0e0e0;
+}
+
+body.dark-mode .popup-content {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .close-popup {
+    background-color: #42a5f5;
+}
+
+body.dark-mode .close-popup:hover {
+    background-color: #007bff;
+}
+
+.toggle-dark-mode {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.toggle-dark-mode:hover {
+    background-color: #0056b3;
+}
+
+body.dark-mode .toggle-dark-mode {
+    background-color: #42a5f5;
+}
+
+body.dark-mode .toggle-dark-mode:hover {
+    background-color: #007bff;
+}
+
