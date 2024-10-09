@@ -54,17 +54,18 @@ const Home = ({ recentEvents }) => {
 
     return (
         <div>
+        <div className="header-container">
         <h1>GCE-O Level History Search</h1>
-
-        <label className="switch">
-        <input 
-            type="checkbox" 
-            checked={darkMode} 
-            onChange={() => setDarkMode(!darkMode)} 
-        />
-        <span className="slider round"></span>
-        <span className="switch-label">{darkMode ? 'Dark' : 'Light'}</span>
-        </label>
+            <label className="switch">
+            <input 
+                type="checkbox" 
+                checked={darkMode} 
+                onChange={() => setDarkMode(!darkMode)} 
+            />
+            <span className="slider round"></span>
+            <span className="switch-label">{darkMode ? 'Dark' : 'Light'}</span>
+            </label>
+        </div>
         <SearchForm onSearch={handleSearch} /> {/* Pass handleSearch to SearchForm */}
         <h2>Recent Events</h2>
         {filteredEvents.length > 0 ? (

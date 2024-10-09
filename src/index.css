@@ -289,6 +289,13 @@ body.dark-mode .toggle-dark-mode:hover {
     background-color: #007bff;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -297,6 +304,7 @@ body.dark-mode .toggle-dark-mode:hover {
   height: 34px;
   margin-bottom: 20px;
   vertical-align: middle;
+  margin-right: 10px;
 }
 
 /* Hide the default checkbox */
