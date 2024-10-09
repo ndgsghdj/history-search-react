@@ -4,8 +4,16 @@ import Card from './Card.js';
 import Popup from './Popup.js';
 
 const Home = ({ recentEvents }) => {
-  const [filteredEvents, setFilteredEvents] = useState(recentEvents);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+
   const [selectedEvent, setSelectedEvent] = useState(null);  // Track selected event for popup
+
+  // UseEffect to update filteredEvents whenever recentEvents changes
+  useEffect(() => {
+    if (recentEvents && recentEvents.length > 0) {
+      setFilteredEvents(recentEvents);  // Initialize with recentEvents
+    }
+  }, [recentEvents]);
 
   // Function to handle search
   const handleSearch = (query) => {
@@ -22,11 +30,12 @@ const Home = ({ recentEvents }) => {
     }
   };
 
-
+  // Handle clicking on a card to open the popup
   const handleCardClick = (event) => {
     setSelectedEvent(event);  // Set the clicked event for the popup
   };
 
+  // Handle closing the popup
   const closePopup = () => {
     setSelectedEvent(null);  // Close the popup by resetting selectedEvent
   };
@@ -39,7 +48,7 @@ const Home = ({ recentEvents }) => {
       {filteredEvents.length > 0 ? (
         <ul className="results-list">
           {filteredEvents.map((event, index) => (
-              <Card event={event} index={index} handleCardClick={handleCardClick}/>
+            <Card key={index} event={event} index={index} handleCardClick={handleCardClick} />
           ))}
         </ul>
       ) : (
@@ -48,7 +57,7 @@ const Home = ({ recentEvents }) => {
 
       {/* Popup component to show event details */}
       {selectedEvent && (
-        <Popup event={selectedEvent} onClose={closePopup} />
+        <Popup event={selectedEvent} closePopup={closePopup} />
       )}
     </div>
   );
