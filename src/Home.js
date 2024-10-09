@@ -56,10 +56,15 @@ const Home = ({ recentEvents }) => {
         <div>
         <h1>GCE-O Level History Search</h1>
 
-        <button onClick={() => setDarkMode(!darkMode)} className="toggle-dark-mode">
-        {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        </button>
-
+        <label className="switch">
+        <input 
+            type="checkbox" 
+            checked={darkMode} 
+            onChange={() => setDarkMode(!darkMode)} 
+        />
+        <span className="slider round"></span>
+        <span className="switch-label">{darkMode ? 'Dark' : 'Light'}</span>
+        </label>
         <SearchForm onSearch={handleSearch} /> {/* Pass handleSearch to SearchForm */}
         <h2>Recent Events</h2>
         {filteredEvents.length > 0 ? (
@@ -74,7 +79,7 @@ const Home = ({ recentEvents }) => {
 
         {/* Popup component to show event details */}
         {selectedEvent && (
-            <Popup event={selectedEvent} closePopup={closePopup} />
+            <Popup event={selectedEvent} onClose={closePopup} />
         )}
         </div>
     );
