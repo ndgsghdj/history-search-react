@@ -1,31 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import SearchForm from './SearchForm';
-import Card from './Card.js';
-import Popup from './Popup.js';
+import { Container, Typography, Switch, FormControlLabel, List } from '@mui/material';
+import SearchForm from './components/SearchForm';
+import EventCard from './components/Card.js';
+import Popup from './components/Popup.js';
+import { Box } from '@mui/material'
 
-const Home = ({ recentEvents }) => {
+
+const Home = ({ recentEvents, darkMode, setDarkMode }) => {
     const [filteredEvents, setFilteredEvents] = useState([]);
-
-    const [selectedEvent, setSelectedEvent] = useState(null);  // Track selected event for popup
-    const [darkMode, setDarkMode] = useState(() => {
-        return localStorage.getItem('theme') === 'dark';
-    });
+    const [selectedEvent, setSelectedEvent] = useState(null); // Track selected event for popup
 
     // UseEffect to update filteredEvents whenever recentEvents changes
     useEffect(() => {
         if (recentEvents && recentEvents.length > 0) {
-            setFilteredEvents(recentEvents);  // Initialize with recentEvents
+            setFilteredEvents(recentEvents); // Initialize with recentEvents
         }
     }, [recentEvents]);
 
-    useEffect(() => {
-        if (darkMode) {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
-        localStorage.setItem('theme', darkMode ? 'dark': 'light');
-    }, [darkMode])
 
     // Function to handle search
     const handleSearch = (query) => {
@@ -44,45 +35,60 @@ const Home = ({ recentEvents }) => {
 
     // Handle clicking on a card to open the popup
     const handleCardClick = (event) => {
-        setSelectedEvent(event);  // Set the clicked event for the popup
+        setSelectedEvent(event); // Set the clicked event for the popup
     };
 
     // Handle closing the popup
     const closePopup = () => {
-        setSelectedEvent(null);  // Close the popup by resetting selectedEvent
+        setSelectedEvent(null); // Close the popup by resetting selectedEvent
     };
 
     return (
-        <div>
-        <div className="header-container">
-        <h1>GCE-O Level History Search</h1>
-            <label className="switch">
-            <input 
-                type="checkbox" 
-                checked={darkMode} 
-                onChange={() => setDarkMode(!darkMode)} 
+        <Container>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
+        <Typography variant="h4" component="h1" color="text.primary">
+        GCE-O Level History Search
+        </Typography>
+
+        <FormControlLabel
+        control={
+            <Switch
+            checked={darkMode}
+            onChange={() => setDarkMode(!darkMode)}
+            color="primary"
             />
-            <span className="slider round"></span>
-            <span className="switch-label">{darkMode ? 'Dark' : 'Light'}</span>
-            </label>
-        </div>
-        <SearchForm onSearch={handleSearch} /> {/* Pass handleSearch to SearchForm */}
-        <h2>Recent Events</h2>
+        }
+        label={darkMode ? 'Dark Mode' : 'Light Mode'}
+        />
+        </Box>
+
+        {/* Search Form */}
+        <Box sx={{ mb: 4 }}>
+        <SearchForm onSearch={handleSearch} />
+        </Box>
+
+        {/* Recent Events */}
+        <Typography variant="h5" component="h2" gutterBottom color="text.primary">
+        Recent Events
+        </Typography>
         {filteredEvents.length > 0 ? (
-            <ul className="results-list">
+            <List>
             {filteredEvents.map((event, index) => (
-                <Card key={index} event={event} index={index} handleCardClick={handleCardClick} />
+                <EventCard
+                key={index}
+                event={event}
+                index={index}
+                handleCardClick={handleCardClick}
+                />
             ))}
-            </ul>
+            </List>
         ) : (
-            <p>No recent events available.</p>
+            <Typography variant="body1" color="text.primary">No recent events available.</Typography>
         )}
 
         {/* Popup component to show event details */}
-        {selectedEvent && (
-            <Popup event={selectedEvent} onClose={closePopup} />
-        )}
-        </div>
+        {selectedEvent && <Popup event={selectedEvent} onClose={closePopup} />}
+        </Container>
     );
 };
 

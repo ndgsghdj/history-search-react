@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Popup from './Popup.js'
-import Card from './Card.js'
+import { Box, Typography, List } from '@mui/material';
+import Popup from './Popup';
+import EventCard from './Card';
 
 const SearchResults = ({ events }) => {
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -32,23 +33,27 @@ const SearchResults = ({ events }) => {
   };
 
   return (
-    <div>
-      <h2>Search Results</h2>
+    <Box sx={{ mt: 4 }}>
+      {/* Search Results Heading */}
+      <Typography variant="h5" component="h2" gutterBottom color="text.primary">
+        Search Results
+      </Typography>
+
       {filteredEvents.length > 0 ? (
-        <ul className="results-list">
+        <List>
           {filteredEvents.map((event, index) => (
-              <Card event={event} index={index} handleCardClick={handleCardClick}/>
+                <EventCard event={event} index={index} handleCardClick={handleCardClick} />
           ))}
-        </ul>
+        </List>
       ) : (
-        <p>No events found matching your search.</p>
+        <Typography variant="body1" color="text.secondary">
+          No events found matching your search.
+        </Typography>
       )}
 
       {/* Popup component to show event details */}
-      {selectedEvent && (
-        <Popup event={selectedEvent} onClose={closePopup} />
-      )}
-    </div>
+      {selectedEvent && <Popup event={selectedEvent} onClose={closePopup} />}
+    </Box>
   );
 };
 

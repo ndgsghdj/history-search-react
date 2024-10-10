@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TextField, Button, Box } from '@mui/material';
 
 const SearchForm = ({ onSearch }) => {
   const [query, setQuery] = useState('');
-  const navigate = useNavigate();  // Using useNavigate for React Router v6
+  const navigate = useNavigate(); // Using useNavigate for React Router v6
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission
@@ -12,16 +13,29 @@ const SearchForm = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-form">
-      <input
-        type="text"
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        display: 'flex',
+        gap: 2,
+        alignItems: 'center',
+        mt: 2,
+      }}
+    >
+      <TextField
+        label="Search Events"
+        variant="outlined"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Enter a keyword (e.g., 'moon landing')"
         required
+        fullWidth
       />
-      <button type="submit">Search</button>
-    </form>
+      <Button type="submit" variant="contained" color="primary">
+        Search
+      </Button>
+    </Box>
   );
 };
 
